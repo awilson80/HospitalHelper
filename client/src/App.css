@@ -5,6 +5,7 @@
 body {
   margin: 0;
   width: 100vw;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App {
@@ -28,7 +29,7 @@ body {
 }
 
 .navbar-logo {
-  padding-top: 3px;
+  padding-top: 4px;
 }
 
 .navbar-title {
@@ -36,7 +37,7 @@ body {
 }
 
 .hospitals-content {
-  margin-top: 50px;
+  margin-top: 70px;
   position: relative;
 }
 
