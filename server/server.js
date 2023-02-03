@@ -26,12 +26,12 @@ app.get('/hospitals', (req, res) => {
 
 app.post('/hospitals', (req, res) => {
     const q =
-        'INSERT INTO hospitals (`name`, `location`, `type`, `npi`) VALUES (?)';
+        'INSERT INTO hospitals (`name`, `location`, `type`, `phone`) VALUES (?)';
     const values = [
         req.body.name,
         req.body.location,
         req.body.type,
-        req.body.npi,
+        req.body.phone,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -60,13 +60,13 @@ app.delete('/hospitals/:id', (req, res) => {
 app.put('/hospitals/:id', (req, res) => {
     const hospitalId = req.params.id;
     const q =
-        'UPDATE hospitals SET `name` = ?, `location` = ?, `type` = ?, `npi` = ? WHERE id = ?';
+        'UPDATE hospitals SET `name` = ?, `location` = ?, `type` = ?, `phone` = ? WHERE id = ?';
 
     const values = [
         req.body.name,
         req.body.location,
         req.body.type,
-        req.body.npi,
+        req.body.phone,
     ];
 
     db.query(q, [...values, hospitalId], (err, data) => {

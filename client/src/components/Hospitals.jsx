@@ -39,7 +39,7 @@ const Hospitals = () => {
                             <h1>{hospital.name}</h1>
                             <h2>{hospital.location}</h2>
                             <h2>{hospital.type}</h2>
-                            <h2>{hospital.npi}</h2>
+                            <h2>{hospital.phone}</h2>
 
                             <button
                                 className='delete-button'

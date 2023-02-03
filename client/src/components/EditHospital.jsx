@@ -7,7 +7,7 @@ const EditHospital = () => {
         name: '',
         location: '',
         type: '',
-        npi: '',
+        phone: '',
     });
 
     const navigate = useNavigate();
@@ -56,9 +56,9 @@ const EditHospital = () => {
             />
             <input
                 type='text'
-                placeholder='npi'
+                placeholder='phone'
                 onChange={handleChange}
-                name='npi'
+                name='phone'
             />
             <button className='form-button' onClick={handleClick}>
                 Save
