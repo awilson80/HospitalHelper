@@ -1,8 +1,10 @@
 import express from 'express';
 import mysql from 'mysql2';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -22,7 +24,7 @@ app.get('/hospitals', (req, res) => {
     });
 });
 
-app.post('/create', (req, res) => {
+app.post('/hospitals', (req, res) => {
     const q =
         'INSERT INTO hospitals (`name`, `location`, `type`, `npi`) VALUES (?)';
     const values = [
@@ -36,11 +38,46 @@ app.post('/create', (req, res) => {
         if (err) {
             return res.json(err);
         } else {
-            return res.json('Hospital added.');
+            return res.json('Hospital successfully added.');
+        }
+    });
+});
+
+app.delete('/hospitals/:id', (req, res) => {
+    const hospitalId = req.params.id;
+
+    const q = 'DELETE FROM `hospitals` WHERE id = ?';
+
+    db.query(q, [hospitalId], (err, data) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            return res.json('Hospital successfully deleted.');
+        }
+    });
+});
+
+app.put('/hospitals/:id', (req, res) => {
+    const hospitalId = req.params.id;
+    const q =
+        'UPDATE hospitals SET `name` = ?, `location` = ?, `type` = ?, `npi` = ? WHERE id = ?';
+
+    const values = [
+        req.body.name,
+        req.body.location,
+        req.body.type,
+        req.body.npi,
+    ];
+
+    db.query(q, [...values, hospitalId], (err, data) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            return res.json('Hospital successfully updated.');
         }
     });
 });
 
 app.listen(4000, () => {
-    console.log('Connected to backend!');
+    console.log("You're in!");
 });
