@@ -37,6 +37,7 @@ body {
 
 .hospitals-content {
   margin-top: 50px;
+  position: relative;
 }
 
 .hospitals-list {
@@ -90,7 +91,7 @@ body {
 }
 
 input {
-  width: 250px;
+  width: 290px;
   padding: 10px;
   border: 1px solid gray;
 }

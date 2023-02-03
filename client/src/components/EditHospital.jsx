@@ -26,7 +26,10 @@ const EditHospital = () => {
     const handleClick = async (event) => {
         event.preventDefault();
         try {
-            await axios.put('http://localhost:4000/hospitals/' + hospitalId, input);
+            await axios.put(
+                'http://localhost:4000/hospitals/' + hospitalId,
+                input
+            );
             navigate('/');
         } catch (err) {
             console.log('Unable to process update.');
