@@ -50,7 +50,7 @@ const Hospitals = () => {
                                 Delete
                             </button>
                             <button className='edit-button'>
-                                <Link to={`/edit/${hospital.id}`}>Edit</Link>
+                                <Link to={`/edit/${hospital.id}`} className='edit-link'>Edit</Link>
                             </button>
                             <br />
                             <br />

@@ -9,10 +9,9 @@ body {
 }
 
 .App {
-  height: 100vh;
   padding: 0px 100px;
   display: flex;
-  align-items: center;
+  align-items: center;                                            
   justify-content: center;
   text-align: center;
 }
@@ -55,6 +54,7 @@ body {
   align-items: center;
   justify-content: center;
   border: 5px solid rgb(189, 190, 190);
+  border-radius: 35px;
 }
 
 .hospitals-details {
@@ -83,6 +83,10 @@ body {
   cursor: pointer;
   color: rgb(91, 189, 219);
   margin: 5px;
+}
+
+.edit-link {
+  text-decoration: none;
 }
 
 .form {
