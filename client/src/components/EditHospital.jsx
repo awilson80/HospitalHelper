@@ -1,20 +1,38 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const EditHospital = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Gets the id for the entry being edited from the endpoint
+    const hospitalId = location.pathname.split('/')[2];
+
+    // const [input, setInput] = useState([]);
+
+    useEffect(() => {
+        const getInputs = async () => {
+            try {
+                const res = await axios.get(
+                    'http://localhost:4000/hospitals/' + hospitalId
+                );
+                setInput(res.data);
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        getInputs();
+    }, []);
+
     const [input, setInput] = useState({
         name: '',
         location: '',
         type: '',
         phone: '',
     });
-
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    // Gets the id for the entry being edited from the endpoint
-    const hospitalId = location.pathname.split('/')[2];
 
     const handleChange = (event) => {
         setInput((prev) => ({
@@ -44,6 +62,7 @@ const EditHospital = () => {
                 placeholder='name'
                 onChange={handleChange}
                 name='name'
+                value={input.name}
             />
             <input
                 type='text'
@@ -51,12 +70,17 @@ const EditHospital = () => {
                 onChange={handleChange}
                 name='location'
             />
-            <input
-                type='text'
-                placeholder='type'
+            <select
                 onChange={handleChange}
+                className='hospital-type-dropdown'
                 name='type'
-            />
+            >
+                <option value='general'>General</option>
+                <option value='pediatric'>Pediatric</option>
+                <option value='cardiology'>Cardiology</option>
+                <option value='neurology'>Neurology</option>
+                <option value='orthopedic'>Orthopedic</option>
+            </select>
             <input
                 type='text'
                 placeholder='phone'
