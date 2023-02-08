@@ -4,21 +4,21 @@
 
 body {
   margin: 0;
-  /* width: 100vw; */
   font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
 }
 
 .App {
   padding: 0px 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;                                            
   justify-content: center;
   text-align: center;
 }
 
 .navbar {
-  position: absolute;
-  top: 0px;
+  position: static;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ body {
 }
 
 .hospitals-content {
-  margin-top: 70px;
+  margin-top: 20px;
   position: relative;
 }
 

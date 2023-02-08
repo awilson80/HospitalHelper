@@ -11,13 +11,20 @@ const EditHospital = () => {
 
     // const [input, setInput] = useState([]);
 
+    const [input, setInput] = useState({
+        name: '',
+        location: '',
+        type: '',
+        phone: '',
+    });
+
     useEffect(() => {
         const getInputs = async () => {
             try {
                 const res = await axios.get(
                     'http://localhost:4000/hospitals/' + hospitalId
                 );
-                setInput(res.data);
+                setInput(res.data[0]);
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
@@ -26,13 +33,6 @@ const EditHospital = () => {
 
         getInputs();
     }, []);
-
-    const [input, setInput] = useState({
-        name: '',
-        location: '',
-        type: '',
-        phone: '',
-    });
 
     const handleChange = (event) => {
         setInput((prev) => ({
@@ -69,23 +69,26 @@ const EditHospital = () => {
                 placeholder='location'
                 onChange={handleChange}
                 name='location'
+                value={input.location}
             />
             <select
                 onChange={handleChange}
                 className='hospital-type-dropdown'
                 name='type'
+                value={input.type}
             >
-                <option value='general'>General</option>
-                <option value='pediatric'>Pediatric</option>
-                <option value='cardiology'>Cardiology</option>
-                <option value='neurology'>Neurology</option>
-                <option value='orthopedic'>Orthopedic</option>
+                <option value='General'>General</option>
+                <option value='Pediatric'>Pediatric</option>
+                <option value='Cardiology'>Cardiology</option>
+                <option value='Neurology'>Neurology</option>
+                <option value='Orthopedic'>Orthopedic</option>
             </select>
             <input
                 type='text'
                 placeholder='phone'
                 onChange={handleChange}
                 name='phone'
+                value={input.phone}
             />
             <button className='form-button' onClick={handleClick}>
                 Save

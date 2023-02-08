@@ -29,8 +29,6 @@ const AddHospital = () => {
         }
     };
 
-    // console.log(input);
-
     return (
         <div className='form'>
             <h1>Add New Hospital</h1>
@@ -46,18 +44,16 @@ const AddHospital = () => {
                 onChange={handleChange}
                 name='location'
             />
-            {/* <input
-                type='text'
-                placeholder='type'
+            <select
                 onChange={handleChange}
+                className='hospital-type-dropdown'
                 name='type'
-            /> */}
-            <select onChange={handleChange} className='hospital-type-dropdown' name='type'>
-                <option value='general'>General</option>
-                <option value='pediatric'>Pediatric</option>
-                <option value='cardiology'>Cardiology</option>
-                <option value='neurology'>Neurology</option>
-                <option value='orthopedic'>Orthopedic</option>
+            >
+                <option value='General'>General</option>
+                <option value='Pediatric'>Pediatric</option>
+                <option value='Cardiology'>Cardiology</option>
+                <option value='Neurology'>Neurology</option>
+                <option value='Orthopedic'>Orthopedic</option>
             </select>
             <input
                 type='text'
