@@ -60,7 +60,7 @@ const Hospitals = () => {
             </div>
             <br />
             <button className='add-button'>
-                <Link to={'/add'}>Add New Hospital</Link>
+                <Link to={'/add'} className='edit-link'>Add New Hospital</Link>
             </button>
         </div>
     );

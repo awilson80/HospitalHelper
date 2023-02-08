@@ -15,7 +15,21 @@ const db = mysql.createConnection({
 
 app.get('/hospitals', (req, res) => {
     const q = 'SELECT * FROM hospitals';
+
     db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            return res.json(data);
+        }
+    });
+});
+
+app.get('/hospitals/:id', (req, res) => {
+    const hospitalId = req.params.id;
+    const q = 'SELECT * FROM `hospitals` WHERE id = ?';
+
+    db.query(q, [hospitalId], (err, data) => {
         if (err) {
             return res.json(err);
         } else {
