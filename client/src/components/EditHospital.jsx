@@ -25,7 +25,6 @@ const EditHospital = () => {
                     'http://localhost:4000/hospitals/' + hospitalId
                 );
                 setInput(res.data[0]);
-                console.log(res.data);
             } catch (err) {
                 console.log(err);
             }
