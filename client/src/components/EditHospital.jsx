@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 const EditHospital = () => {
     const navigate = useNavigate();
@@ -8,8 +11,6 @@ const EditHospital = () => {
 
     // Gets the id for the entry being edited from the endpoint
     const hospitalId = location.pathname.split('/')[2];
-
-    // const [input, setInput] = useState([]);
 
     const [input, setInput] = useState({
         name: '',
@@ -40,12 +41,11 @@ const EditHospital = () => {
         }));
     };
 
-    const handleClick = async (event) => {
-        event.preventDefault();
+    const sendData = async (data) => {
         try {
             await axios.put(
                 'http://localhost:4000/hospitals/' + hospitalId,
-                input
+                data
             );
             navigate('/');
         } catch (err) {
@@ -53,28 +53,58 @@ const EditHospital = () => {
         }
     };
 
+    // Validation
+
+    const onSubmit = (data) => {
+        sendData(data);
+    };
+
+    const schema = yup.object().shape({
+        name: yup.string().required('Please provide the name.'),
+        location: yup.string().required(`Please provide the location.`),
+        type: yup.string().required('Please specify the type.'),
+        phone: yup
+            .number()
+            .positive()
+            .integer()
+            .required('Please provide the phone number.'),
+    });
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+    });
+
     return (
-        <div className='form'>
+        <form className='form'>
             <h1>Edit Hospital Details</h1>
             <input
                 type='text'
                 placeholder='name'
                 onChange={handleChange}
                 name='name'
-                value={input.name}
+                defaultValue={input.name}
+                {...register('name')}
             />
+            {errors.name && <p>{errors.name.message}</p>}
             <input
                 type='text'
                 placeholder='location'
                 onChange={handleChange}
                 name='location'
-                value={input.location}
+                defaultValue={input.location}
+                {...register('location')}
             />
+            {errors.location && <p>{errors.location.message}</p>}
             <select
                 onChange={handleChange}
                 className='hospital-type-dropdown'
                 name='type'
-                value={input.type}
+                defaultValue={input.type}
+                {...register('type')}
             >
                 <option value='General'>General</option>
                 <option value='Pediatric'>Pediatric</option>
@@ -82,17 +112,24 @@ const EditHospital = () => {
                 <option value='Neurology'>Neurology</option>
                 <option value='Orthopedic'>Orthopedic</option>
             </select>
+            {errors.type && <p>{errors.type.message}</p>}
             <input
                 type='text'
                 placeholder='phone'
                 onChange={handleChange}
                 name='phone'
-                value={input.phone}
+                defaultValue={input.phone}
+                {...register('phone')}
             />
-            <button className='form-button' onClick={handleClick}>
+            {errors.phone && <p>{errors.phone.message}</p>}
+            <button
+                type='submit'
+                className='form-button'
+                onClick={handleSubmit(onSubmit)}
+            >
                 Save
             </button>
-        </div>
+        </form>
     );
 };
 
