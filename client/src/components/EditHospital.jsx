@@ -70,7 +70,7 @@ const EditHospital = () => {
         location: yup
             .string()
             .matches(
-                /^[a-zA-Z0-9]+(([\'\,\.\- ][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/,
+                /^[a-zA-Z0-9]+(([',.\- ][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/,
                 'Location contains invalid characters.'
             )
             .required(`Please provide the location.`),
