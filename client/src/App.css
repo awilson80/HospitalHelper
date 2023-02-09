@@ -101,8 +101,19 @@ input {
   border: 1px solid gray;
 }
 
+.hospital-add-dropdown {
+  height: 35px;
+  width: 290px;
+}
+
+.hospital-edit-dropdown {
+  height: 35px;
+  width: 290px;
+}
+
 .form-button {
   border: none;
   padding: 10px;
   background-color: rgb(191, 214, 217);
+  width: 290px;
 }

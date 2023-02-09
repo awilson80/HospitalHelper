@@ -38,14 +38,35 @@ const AddHospital = () => {
     };
 
     const schema = yup.object().shape({
-        name: yup.string().required('Please provide the name.'),
-        location: yup.string().required(`Please provide the location.`),
+        name: yup
+            .string()
+            .matches(
+                /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+                'Name can only contain Latin letters.'
+            )
+            .required('Please provide the name.'),
+        location: yup
+            .string()
+            .matches(
+                /^[a-zA-Z0-9]+(([\'\,\.\- ][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/,
+                'Location contains invalid characters.'
+            )
+            .required(`Please provide the location.`),
         type: yup.string().required('Please specify the type.'),
         phone: yup
-            .number()
-            .positive()
-            .integer()
-            .required('Please provide the phone number.'),
+            .string()
+            .min(7, 'Phone must be at least 7 characters')
+            .max(15, 'Phone number must be at most 15 characters')
+            .matches(/^[^.]*$/, {
+                message: 'Phone number contains invalid characters.',
+            })
+            .matches(/^[^!@#$%^&*+=<>:;|~]*$/, {
+                message: 'Phone number contains invalid characters.',
+            })
+            .matches(/^[\s\d)(-]+$/, {
+                //original matcher
+                message: 'Please provide phone number in a valid format.',
+            }),
     });
 
     const {
@@ -77,7 +98,7 @@ const AddHospital = () => {
             {errors.location && <p>{errors.location.message}</p>}
             <select
                 onChange={handleChange}
-                className='hospital-type-dropdown'
+                className='hospital-add-dropdown'
                 name='type'
                 {...register('type')}
             >
